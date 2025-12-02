@@ -36,22 +36,89 @@ if errorlevel 1 (
 echo [OK] Python encontrado!
 echo.
 
-REM Atualizar pip
-echo [2/5] Atualizando pip...
-python -m pip install --upgrade pip --quiet
+REM Atualizar pip, setuptools e wheel
+echo [2/5] Atualizando pip, setuptools e wheel...
+python -m pip install --upgrade pip setuptools wheel
+if errorlevel 1 (
+    echo [ERRO] Falha ao atualizar pip!
+    pause
+    exit /b 1
+)
 echo [OK] pip atualizado!
 echo.
 
-REM Instalar bibliotecas principais
+REM Instalar bibliotecas principais UMA POR VEZ (para detectar erros)
 echo [3/5] Instalando bibliotecas necessarias...
-echo    - numpy, opencv-python, matplotlib, Pillow
-python -m pip install numpy opencv-python matplotlib Pillow --quiet
-echo    - tensorflow, tensorflow-hub
-python -m pip install tensorflow tensorflow-hub --quiet
-echo    - jax, jaxlib
-python -m pip install jax jaxlib --quiet
-echo    - pickle5 (se necessario)
-python -m pip install pickle5 --quiet 2>nul
+echo.
+echo    Instalando numpy...
+python -m pip install numpy
+if errorlevel 1 (
+    color 0C
+    echo [ERRO] Falha ao instalar numpy!
+    echo Tente executar este script como Administrador.
+    pause
+    exit /b 1
+)
+echo    [OK] numpy instalado!
+echo.
+
+echo    Instalando opencv-python...
+python -m pip install opencv-python
+if errorlevel 1 (
+    color 0C
+    echo [ERRO] Falha ao instalar opencv-python!
+    pause
+    exit /b 1
+)
+echo    [OK] opencv-python instalado!
+echo.
+
+echo    Instalando matplotlib...
+python -m pip install matplotlib
+if errorlevel 1 (
+    color 0C
+    echo [ERRO] Falha ao instalar matplotlib!
+    pause
+    exit /b 1
+)
+echo    [OK] matplotlib instalado!
+echo.
+
+echo    Instalando Pillow...
+python -m pip install Pillow
+if errorlevel 1 (
+    color 0C
+    echo [ERRO] Falha ao instalar Pillow!
+    pause
+    exit /b 1
+)
+echo    [OK] Pillow instalado!
+echo.
+
+echo    Instalando tensorflow (pode demorar)...
+python -m pip install tensorflow
+if errorlevel 1 (
+    echo [AVISO] tensorflow falhou, tentando versao CPU...
+    python -m pip install tensorflow-cpu
+)
+echo    [OK] tensorflow instalado!
+echo.
+
+echo    Instalando tensorflow-hub...
+python -m pip install tensorflow-hub
+echo    [OK] tensorflow-hub instalado!
+echo.
+
+echo    Instalando jax...
+python -m pip install jax
+echo    [OK] jax instalado!
+echo.
+
+echo    Instalando jaxlib...
+python -m pip install jaxlib
+echo    [OK] jaxlib instalado!
+echo.
+
 echo [OK] Bibliotecas principais instaladas!
 echo.
 
@@ -101,16 +168,26 @@ echo ============================================================
 echo   VERIFICANDO INSTALACOES
 echo ============================================================
 echo.
-echo Testando imports...
-python -c "import numpy; print('[OK] numpy')"
-python -c "import cv2; print('[OK] opencv-python')"
-python -c "import matplotlib; print('[OK] matplotlib')"
-python -c "import PIL; print('[OK] Pillow')"
-python -c "import tensorflow; print('[OK] tensorflow')"
-python -c "import jax; print('[OK] jax')"
-python -c "import tkinter; print('[OK] tkinter')"
+echo Testando imports OBRIGATORIOS...
+
+python -c "import numpy; print('[OK] numpy')" || (echo [ERRO] numpy NAO instalado! & pause & exit /b 1)
+python -c "import cv2; print('[OK] opencv-python')" || (echo [ERRO] opencv-python NAO instalado! & pause & exit /b 1)
+python -c "import matplotlib; print('[OK] matplotlib')" || (echo [ERRO] matplotlib NAO instalado! & pause & exit /b 1)
+python -c "import PIL; print('[OK] Pillow')" || (echo [ERRO] Pillow NAO instalado! & pause & exit /b 1)
+python -c "import tkinter; print('[OK] tkinter')" || (echo [ERRO] tkinter NAO instalado! & pause & exit /b 1)
+python -c "import PyInstaller; print('[OK] PyInstaller')" || (echo [ERRO] PyInstaller NAO instalado! & pause & exit /b 1)
+
+echo.
+echo Testando imports OPCIONAIS...
+python -c "import tensorflow; print('[OK] tensorflow')" 2>nul || echo [AVISO] tensorflow (opcional)
+python -c "import jax; print('[OK] jax')" 2>nul || echo [AVISO] jax (opcional)
 python -c "import monocular_demos; print('[OK] monocular-demos')" 2>nul || echo [AVISO] monocular-demos (opcional)
-python -c "import PyInstaller; print('[OK] PyInstaller')"
+echo.
+
+echo ============================================================
+echo Todas as bibliotecas OBRIGATORIAS foram instaladas!
+echo O executavel pode ser criado.
+echo ============================================================
 echo.
 
 echo ============================================================
@@ -121,7 +198,33 @@ echo Gerando Analisador_Marcha.exe...
 echo Este processo pode levar alguns minutos...
 echo.
 
-pyinstaller --name=Analisador_Marcha --onefile --windowed --icon=NONE --hidden-import=PIL._tkinter_finder --hidden-import=tkinter --hidden-import=cv2 --hidden-import=matplotlib --hidden-import=numpy --noconfirm video_processor_gui.py
+REM Limpar builds anteriores
+if exist "build" rmdir /s /q "build"
+if exist "dist" rmdir /s /q "dist"
+if exist "Analisador_Marcha.spec" del /q "Analisador_Marcha.spec"
+
+REM Criar executavel com todas as dependencias explicitas
+pyinstaller ^
+    --name=Analisador_Marcha ^
+    --onefile ^
+    --windowed ^
+    --icon=NONE ^
+    --hidden-import=PIL._tkinter_finder ^
+    --hidden-import=tkinter ^
+    --hidden-import=tkinter.ttk ^
+    --hidden-import=tkinter.filedialog ^
+    --hidden-import=tkinter.messagebox ^
+    --hidden-import=cv2 ^
+    --hidden-import=matplotlib ^
+    --hidden-import=matplotlib.pyplot ^
+    --hidden-import=matplotlib.backends.backend_agg ^
+    --hidden-import=numpy ^
+    --hidden-import=PIL ^
+    --hidden-import=PIL.Image ^
+    --hidden-import=PIL.ImageTk ^
+    --collect-data cv2 ^
+    --noconfirm ^
+    video_processor_gui.py
 
 if errorlevel 1 (
     color 0C
