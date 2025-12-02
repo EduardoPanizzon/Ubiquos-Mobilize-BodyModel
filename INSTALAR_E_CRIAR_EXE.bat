@@ -35,7 +35,6 @@ if errorlevel 1 (
     echo - Use Python 3.11, 3.12 ou 3.13
     echo.
     pause
-    exit /b 1
 )
 echo [OK] Python encontrado!
 python --version
@@ -322,3 +321,4 @@ echo - Os projetos ficam salvos na pasta "projetos"
 echo - Mantenha a pasta "projetos" junto com o .exe se for mover
 echo.
 pause
+
