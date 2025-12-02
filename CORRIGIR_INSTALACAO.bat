@@ -59,21 +59,27 @@ echo.
 echo --- NUMPY ---
 echo Desinstalando versao antiga (se existir)...
 python -m pip uninstall numpy -y >nul 2>&1
-echo Instalando numpy...
-python -m pip install numpy --no-cache-dir
+echo Instalando numpy (versao 1.24.0 ou superior)...
+python -m pip install "numpy>=1.24.0" --no-cache-dir
 if errorlevel 1 (
     color 0C
     echo.
-    echo [ERRO] Falha ao instalar NUMPY
-    echo.
-    echo Possiveis solucoes:
-    echo 1. Atualize o Python para a versao mais recente
-    echo 2. Instale o Microsoft Visual C++ 14.0 ou superior
-    echo    Download: https://visualstudio.microsoft.com/visual-cpp-build-tools/
-    echo 3. Tente: python -m pip install numpy==1.24.3
-    echo.
-    pause
-    exit /b 1
+    echo [ERRO] Falha ao instalar NUMPY versao recente
+    echo Tentando versao especifica 1.24.0...
+    python -m pip install numpy==1.24.0 --no-cache-dir
+    if errorlevel 1 (
+        echo.
+        echo [ERRO] Falha ao instalar NUMPY
+        echo.
+        echo Possiveis solucoes:
+        echo 1. Atualize o Python para a versao mais recente
+        echo 2. Instale o Microsoft Visual C++ 14.0 ou superior
+        echo    Download: https://visualstudio.microsoft.com/visual-cpp-build-tools/
+        echo 3. Tente: python -m pip install numpy==1.24.3
+        echo.
+        pause
+        exit /b 1
+    )
 )
 echo [OK] numpy instalado!
 timeout /t 1 >nul
@@ -82,17 +88,21 @@ echo.
 echo --- OPENCV-PYTHON ---
 echo Desinstalando versao antiga (se existir)...
 python -m pip uninstall opencv-python opencv-python-headless -y >nul 2>&1
-echo Instalando opencv-python...
-python -m pip install opencv-python --no-cache-dir
+echo Instalando opencv-python (versao 4.8.0 ou superior)...
+python -m pip install "opencv-python>=4.8.0" --no-cache-dir
 if errorlevel 1 (
     color 0C
-    echo [ERRO] Falha ao instalar OPENCV-PYTHON
-    echo Tentando versao alternativa...
-    python -m pip install opencv-python-headless --no-cache-dir
+    echo [ERRO] Falha ao instalar OPENCV-PYTHON versao recente
+    echo Tentando versao especifica 4.8.0...
+    python -m pip install opencv-python==4.8.0 --no-cache-dir
     if errorlevel 1 (
-        echo [ERRO] Ambas versoes falharam!
-        pause
-        exit /b 1
+        echo Tentando opencv-python-headless como alternativa...
+        python -m pip install "opencv-python-headless>=4.8.0" --no-cache-dir
+        if errorlevel 1 (
+            echo [ERRO] Todas as versoes falharam!
+            pause
+            exit /b 1
+        )
     )
 )
 echo [OK] opencv-python instalado!
@@ -102,9 +112,13 @@ echo.
 echo --- MATPLOTLIB ---
 echo Desinstalando versao antiga (se existir)...
 python -m pip uninstall matplotlib -y >nul 2>&1
-echo Instalando matplotlib...
-python -m pip install matplotlib --no-cache-dir
-if errorlevel 1 goto erro_lib
+echo Instalando matplotlib (versao 3.7.0 ou superior)...
+python -m pip install "matplotlib>=3.7.0" --no-cache-dir
+if errorlevel 1 (
+    echo Tentando versao especifica 3.7.0...
+    python -m pip install matplotlib==3.7.0 --no-cache-dir
+    if errorlevel 1 goto erro_lib
+)
 echo [OK] matplotlib instalado!
 timeout /t 1 >nul
 echo.
@@ -112,9 +126,13 @@ echo.
 echo --- PILLOW ---
 echo Desinstalando versao antiga (se existir)...
 python -m pip uninstall Pillow -y >nul 2>&1
-echo Instalando Pillow...
-python -m pip install Pillow --no-cache-dir
-if errorlevel 1 goto erro_lib
+echo Instalando Pillow (versao 10.0.0 ou superior)...
+python -m pip install "Pillow>=10.0.0" --no-cache-dir
+if errorlevel 1 (
+    echo Tentando versao especifica 10.0.0...
+    python -m pip install Pillow==10.0.0 --no-cache-dir
+    if errorlevel 1 goto erro_lib
+)
 echo [OK] Pillow instalado!
 timeout /t 1 >nul
 echo.

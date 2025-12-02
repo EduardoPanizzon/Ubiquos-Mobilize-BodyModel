@@ -50,47 +50,63 @@ echo.
 REM Instalar bibliotecas principais UMA POR VEZ (para detectar erros)
 echo [3/5] Instalando bibliotecas necessarias...
 echo.
-echo    Instalando numpy...
-python -m pip install numpy
+echo    Instalando numpy (versao especifica)...
+python -m pip install "numpy>=1.24.0"
 if errorlevel 1 (
     color 0C
     echo [ERRO] Falha ao instalar numpy!
-    echo Tente executar este script como Administrador.
-    pause
-    exit /b 1
+    echo Tentando versao alternativa...
+    python -m pip install numpy==1.24.0
+    if errorlevel 1 (
+        echo Tente executar este script como Administrador.
+        pause
+        exit /b 1
+    )
 )
 echo    [OK] numpy instalado!
 echo.
 
-echo    Instalando opencv-python...
-python -m pip install opencv-python
+echo    Instalando opencv-python (versao especifica)...
+python -m pip install "opencv-python>=4.8.0"
 if errorlevel 1 (
     color 0C
     echo [ERRO] Falha ao instalar opencv-python!
-    pause
-    exit /b 1
+    echo Tentando versao alternativa...
+    python -m pip install opencv-python==4.8.0
+    if errorlevel 1 (
+        pause
+        exit /b 1
+    )
 )
 echo    [OK] opencv-python instalado!
 echo.
 
-echo    Instalando matplotlib...
-python -m pip install matplotlib
+echo    Instalando matplotlib (versao especifica)...
+python -m pip install "matplotlib>=3.7.0"
 if errorlevel 1 (
     color 0C
     echo [ERRO] Falha ao instalar matplotlib!
-    pause
-    exit /b 1
+    echo Tentando versao alternativa...
+    python -m pip install matplotlib==3.7.0
+    if errorlevel 1 (
+        pause
+        exit /b 1
+    )
 )
 echo    [OK] matplotlib instalado!
 echo.
 
-echo    Instalando Pillow...
-python -m pip install Pillow
+echo    Instalando Pillow (versao especifica)...
+python -m pip install "Pillow>=10.0.0"
 if errorlevel 1 (
     color 0C
     echo [ERRO] Falha ao instalar Pillow!
-    pause
-    exit /b 1
+    echo Tentando versao alternativa...
+    python -m pip install Pillow==10.0.0
+    if errorlevel 1 (
+        pause
+        exit /b 1
+    )
 )
 echo    [OK] Pillow instalado!
 echo.
