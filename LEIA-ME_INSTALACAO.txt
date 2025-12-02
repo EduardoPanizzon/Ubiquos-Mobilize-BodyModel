@@ -1,0 +1,95 @@
+# GUIA DE INSTALAÇÃO - ANALISADOR DE MARCHA
+
+### O que você precisa ter instalado:
+1. **Python 3.8 ou superior**
+   - Baixe em: https://www.python.org/downloads/
+   - ⚠️ **IMPORTANTE**: Marque a opção "Add Python to PATH" durante a instalação!
+
+2. **Git** (opcional, mas recomendado)
+   - Baixe em: https://git-scm.com/download/win
+   - Use as configurações padrão durante a instalação
+
+---
+
+## Como criar o executável:
+
+### Opção 1: INSTALAÇÃO AUTOMÁTICA (RECOMENDADO)
+
+1. **Dê duplo clique** em: `INSTALAR_E_CRIAR_EXE.bat`
+
+2. O script irá automaticamente:
+   - ✓ Verificar se Python está instalado
+   - ✓ Instalar todas as bibliotecas necessárias
+   - ✓ Instalar monocular-demos
+   - ✓ Criar o executável `Analisador_Marcha.exe`
+
+3. **Aguarde** (pode levar 5-10 minutos na primeira vez)
+
+4. Pronto! O executável estará em: `dist\Analisador_Marcha.exe`
+
+---
+
+### Opção 2: Apenas executar (se já instalado)
+
+Se você já instalou tudo e só quer executar o programa:
+
+1. **Dê duplo clique** em: `Executar_Analisador_Marcha.bat`
+
+---
+
+## Como usar o executável criado:
+
+1. O arquivo `Analisador_Marcha.exe` está na pasta `dist\`
+
+2. Você pode:
+   - Executar diretamente dando duplo clique
+   - Criar um atalho na área de trabalho
+   - Copiar para qualquer lugar do computador
+   - **Distribuir para outras pessoas** (não precisa instalar Python!)
+
+3. **IMPORTANTE**: 
+   - Os projetos ficam salvos na pasta `projetos`
+   - Se mover o .exe, leve a pasta `projetos` junto
+
+---
+
+## Problemas Comuns:
+
+### "Python não encontrado"
+- Instale o Python: https://www.python.org/downloads/
+- Marque "Add Python to PATH" durante a instalação
+- Reinicie o computador após instalar
+
+### "Git não encontrado" 
+- Opção 1: Instale o Git: https://git-scm.com/download/win
+- Opção 2: O script tentará instalar sem Git (pode ser mais lento)
+
+### "Erro ao instalar bibliotecas"
+- Verifique sua conexão com a internet
+- Execute o script como Administrador (clique direito → Executar como administrador)
+
+### "Executável não abre"
+- Verifique se o Windows Defender não bloqueou
+- Clique direito no .exe → Propriedades → Desbloquear
+
+---
+
+## Distribuindo para outras pessoas:
+
+1. Copie apenas o arquivo `dist\Analisador_Marcha.exe`
+2. A pessoa **NÃO** precisa ter Python instalado
+3. O executável funciona sozinho
+
+---
+
+## Suporte:
+
+Se encontrar problemas:
+1. Verifique se Python está instalado: abra o Prompt de Comando e digite `python --version`
+2. Execute o script `INSTALAR_E_CRIAR_EXE.bat` como Administrador
+3. Leia as mensagens de erro na tela preta
+4. Certifique-se de ter conexão com internet
+
+---
+
+**Desenvolvido para análise de marcha com processamento de vídeo**
