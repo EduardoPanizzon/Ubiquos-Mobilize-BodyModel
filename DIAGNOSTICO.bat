@@ -21,6 +21,23 @@ if errorlevel 1 (
 ) else (
     echo [OK] Python encontrado
     python --version
+    echo.
+    echo Verificando versao do Python...
+    python -c "import sys; v=sys.version_info; exit(0 if (3,11)<=v<(3,14) else 1)" 2>nul
+    if errorlevel 1 (
+        color 0E
+        echo [AVISO] Versao do Python pode ser incompativel!
+        echo.
+        echo VERSOES COMPATIVEIS: Python 3.11, 3.12 ou 3.13
+        echo VERSAO NAO COMPATIVEL: Python 3.14
+        echo.
+        echo Recomenda-se instalar Python 3.11 ou 3.12
+        echo Download: https://www.python.org/downloads/
+        echo.
+        pause
+    ) else (
+        echo [OK] Versao compativel (3.11 - 3.13)
+    )
 )
 echo.
 
@@ -63,16 +80,24 @@ echo Testando PyInstaller...
 python -c "import PyInstaller; print('  Versao:', PyInstaller.__version__)" 2>nul || echo   [X] NAO INSTALADO
 echo.
 
-echo Testando tensorflow (opcional)...
-python -c "import tensorflow; print('  Versao:', tensorflow.__version__)" 2>nul || echo   [OPCIONAL] Nao instalado
+echo Testando tensorflow...
+python -c "import tensorflow; print('  Versao:', tensorflow.__version__)" 2>nul || echo   [X] NAO INSTALADO
 echo.
 
-echo Testando jax (opcional)...
-python -c "import jax; print('  Versao:', jax.__version__)" 2>nul || echo   [OPCIONAL] Nao instalado
+echo Testando jax...
+python -c "import jax; print('  Versao:', jax.__version__)" 2>nul || echo   [X] NAO INSTALADO
 echo.
 
-echo Testando monocular_demos (opcional)...
-python -c "import monocular_demos; print('  [OK] Instalado')" 2>nul || echo   [OPCIONAL] Nao instalado
+echo Testando warp-lang...
+python -c "import warp; print('  Versao:', warp.__version__)" 2>nul || echo   [X] NAO INSTALADO
+echo.
+
+echo Testando mujoco-mjx...
+python -c "import mujoco_mjx; print('  [OK] Instalado')" 2>nul || echo   [X] NAO INSTALADO
+echo.
+
+echo Testando monocular_demos...
+python -c "import monocular_demos; print('  [OK] Instalado')" 2>nul || echo   [X] NAO INSTALADO
 echo.
 
 echo ============================================================
@@ -99,9 +124,15 @@ echo ============================================================
 echo   DIAGNOSTICO CONCLUIDO
 echo ============================================================
 echo.
+echo BIBLIOTECAS OBRIGATORIAS:
+echo - numpy, opencv-python, matplotlib, Pillow, tkinter
+echo - tensorflow, jax, warp-lang, mujoco-mjx
+echo - monocular_demos, PyInstaller
+echo.
 echo Se alguma biblioteca OBRIGATORIA estiver faltando:
-echo 1. Execute: INSTALAR_E_CRIAR_EXE.bat como Administrador
-echo 2. Ou instale manualmente: python -m pip install NOME_DA_BIBLIOTECA
+echo 1. Execute: CORRIGIR_INSTALACAO.bat como Administrador
+echo 2. Ou execute: INSTALAR_E_CRIAR_EXE.bat como Administrador
+echo 3. Ou instale manualmente: python -m pip install NOME_DA_BIBLIOTECA
 echo.
 
 :fim

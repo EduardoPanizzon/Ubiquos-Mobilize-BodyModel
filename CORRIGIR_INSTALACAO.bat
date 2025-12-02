@@ -14,6 +14,27 @@ echo.
 pause
 echo.
 
+REM Verificar versao do Python
+echo Verificando versao do Python...
+python --version
+echo.
+python -c "import sys; v=sys.version_info; exit(0 if (3,11)<=v<(3,14) else 1)" 2>nul
+if errorlevel 1 (
+    color 0C
+    echo [ERRO] Versao do Python incompativel!
+    echo.
+    echo VERSOES COMPATIVEIS: Python 3.11, 3.12 ou 3.13
+    echo VERSAO NAO COMPATIVEL: Python 3.14
+    echo.
+    echo Por favor, instale uma versao compativel:
+    echo https://www.python.org/downloads/
+    echo.
+    pause
+    exit /b 1
+)
+echo [OK] Python versao compativel (3.11 - 3.13)
+echo.
+
 REM Elevar privilegios se possivel
 echo Verificando permissoes...
 net session >nul 2>&1
@@ -147,18 +168,54 @@ echo [OK] PyInstaller instalado!
 timeout /t 1 >nul
 echo.
 
-REM Bibliotecas opcionais
+REM Bibliotecas adicionais obrigatorias
 echo ============================================================
-echo [PASSO 3] Instalando bibliotecas opcionais
+echo [PASSO 3] Instalando bibliotecas adicionais obrigatorias
 echo ============================================================
 echo.
 
-echo Instalando tensorflow (pode demorar, pode falhar sem problema)...
-python -m pip install tensorflow 2>nul || python -m pip install tensorflow-cpu 2>nul || echo [AVISO] tensorflow nao instalado (opcional)
+echo --- TENSORFLOW ---
+echo Desinstalando versao antiga (se existir)...
+python -m pip uninstall tensorflow tensorflow-cpu -y >nul 2>&1
+echo Instalando tensorflow...
+python -m pip install tensorflow --no-cache-dir
+if errorlevel 1 (
+    echo Tentando tensorflow-cpu...
+    python -m pip install tensorflow-cpu --no-cache-dir
+    if errorlevel 1 goto erro_lib
+)
+echo [OK] tensorflow instalado!
+timeout /t 1 >nul
 echo.
 
+echo --- JAX e JAXLIB ---
+echo Desinstalando versao antiga (se existir)...
+python -m pip uninstall jax jaxlib -y >nul 2>&1
 echo Instalando jax e jaxlib...
-python -m pip install jax jaxlib 2>nul || echo [AVISO] jax nao instalado (opcional)
+python -m pip install jax jaxlib --no-cache-dir
+if errorlevel 1 goto erro_lib
+echo [OK] jax e jaxlib instalados!
+timeout /t 1 >nul
+echo.
+
+echo --- WARP-LANG ---
+echo Desinstalando versao antiga (se existir)...
+python -m pip uninstall warp-lang -y >nul 2>&1
+echo Instalando warp-lang...
+python -m pip install warp-lang --no-cache-dir
+if errorlevel 1 goto erro_lib
+echo [OK] warp-lang instalado!
+timeout /t 1 >nul
+echo.
+
+echo --- MUJOCO-MJX ---
+echo Desinstalando versao antiga (se existir)...
+python -m pip uninstall mujoco-mjx -y >nul 2>&1
+echo Instalando mujoco-mjx...
+python -m pip install mujoco-mjx --no-cache-dir
+if errorlevel 1 goto erro_lib
+echo [OK] mujoco-mjx instalado!
+timeout /t 1 >nul
 echo.
 
 REM Testar instalacoes
@@ -172,6 +229,10 @@ python -c "import cv2; print('[OK] cv2 - versao', cv2.__version__)" || goto erro
 python -c "import matplotlib; print('[OK] matplotlib - versao', matplotlib.__version__)" || goto erro_teste
 python -c "import PIL; print('[OK] PIL - versao', PIL.__version__)" || goto erro_teste
 python -c "import tkinter; print('[OK] tkinter')" || goto erro_teste
+python -c "import tensorflow; print('[OK] tensorflow - versao', tensorflow.__version__)" || goto erro_teste
+python -c "import jax; print('[OK] jax - versao', jax.__version__)" || goto erro_teste
+python -c "import warp; print('[OK] warp-lang - versao', warp.__version__)" || goto erro_teste
+python -c "import mujoco_mjx; print('[OK] mujoco-mjx')" || goto erro_teste
 python -c "import PyInstaller; print('[OK] PyInstaller - versao', PyInstaller.__version__)" || goto erro_teste
 
 echo.

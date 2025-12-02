@@ -366,13 +366,19 @@ class VideoProcessorApp:
         instructions_frame.pack(fill='both', expand=True, pady=10, padx=50)
         
         instructions = """
-        1. Certifique-se de que o vídeo foi cortado e está pronto
-        2. Clique em "Abrir Google Colab" para processar o vídeo
-        3. No Colab, faça upload do vídeo da pasta do projeto
-        4. Execute o notebook Mobile_cloud.ipynb
-        5. Após o processamento, salve os modelos no Google Drive
-        6. Baixe os modelos para a pasta do projeto
-        7. Acesse a aba "Resultados" para visualizar
+        PREPARAÇÃO (faça uma vez):
+        1. No Google Drive, vincule a pasta local "Ubiquos_Mobilize_BodyModel"
+        
+        PROCESSAMENTO:
+        2. Certifique-se de que o vídeo foi cortado e está pronto
+        3. Clique em "Abrir Google Colab" abaixo
+        4. No Colab, execute o notebook Mobile_cloud.ipynb
+        5. Aguarde o processamento na nuvem (pode levar alguns minutos)
+        6. Os arquivos processados serão salvos automaticamente no Drive
+        
+        VISUALIZAÇÃO:
+        7. Acesse a aba "Resultados" e clique em "Processar Resultados"
+        8. Visualize os gráficos e vídeos de análise de marcha
         """
         
         ttk.Label(instructions_frame, text=instructions, 

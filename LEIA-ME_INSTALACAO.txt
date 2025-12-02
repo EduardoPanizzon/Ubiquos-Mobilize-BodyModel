@@ -1,9 +1,12 @@
 # GUIA DE INSTALAÇÃO - ANALISADOR DE MARCHA
 
 ### O que você precisa ter instalado:
-1. **Python 3.8 ou superior**
+1. **Python 3.11, 3.12 ou 3.13** (IMPORTANTE: NÃO use Python 3.14!)
    - Baixe em: https://www.python.org/downloads/
+   - ⚠️ **VERSÕES COMPATÍVEIS**: Python 3.11, 3.12 ou 3.13
+   - ⚠️ **VERSÃO INCOMPATÍVEL**: Python 3.14 (não funciona!)
    - ⚠️ **IMPORTANTE**: Marque a opção "Add Python to PATH" durante a instalação!
+   - ⚠️ **IMPORTANTE**: Marque a opção "Add Python tkinter" durante a instalação!
 
 2. **Git** (opcional, mas recomendado)
    - Baixe em: https://git-scm.com/download/win
@@ -18,9 +21,11 @@
 1. **Dê duplo clique** em: `INSTALAR_E_CRIAR_EXE.bat`
 
 2. O script irá automaticamente:
-   - ✓ Verificar se Python está instalado
-   - ✓ Instalar todas as bibliotecas necessárias
-   - ✓ Instalar monocular-demos
+   - ✓ Verificar se Python está instalado (versão 3.11-3.13)
+   - ✓ Instalar todas as bibliotecas necessárias:
+     • numpy, opencv-python, matplotlib, Pillow
+     • tensorflow, jax, warp-lang, mujoco-mjx
+     • monocular-demos, PyInstaller
    - ✓ Criar o executável `Analisador_Marcha.exe`
 
 3. **Aguarde** (pode levar 5-10 minutos na primeira vez)
@@ -55,8 +60,9 @@ Se você já instalou tudo e só quer executar o programa:
 
 ## Problemas Comuns:
 
-### "Python não encontrado"
-- Instale o Python: https://www.python.org/downloads/
+### "Python não encontrado" ou "Versão incompatível"
+- Instale Python 3.11, 3.12 ou 3.13: https://www.python.org/downloads/
+- **NÃO instale Python 3.14** (incompatível com as bibliotecas)
 - Marque "Add Python to PATH" durante a instalação
 - Reinicie o computador após instalar
 
@@ -85,10 +91,26 @@ Se você já instalou tudo e só quer executar o programa:
 ## Suporte:
 
 Se encontrar problemas:
-1. Verifique se Python está instalado: abra o Prompt de Comando e digite `python --version`
-2. Execute o script `INSTALAR_E_CRIAR_EXE.bat` como Administrador
-3. Leia as mensagens de erro na tela preta
-4. Certifique-se de ter conexão com internet
+1. Execute `DIAGNOSTICO.bat` para verificar o que está instalado
+2. Verifique se Python está instalado e é versão 3.11-3.13: 
+   - Abra o Prompt de Comando e digite `python --version`
+   - Se for Python 3.14, desinstale e instale Python 3.11 ou 3.12
+3. Execute o script `CORRIGIR_INSTALACAO.bat` como Administrador
+4. Se ainda houver erro, execute `INSTALAR_E_CRIAR_EXE.bat` como Administrador
+5. Leia as mensagens de erro na tela preta
+6. Certifique-se de ter conexão com internet
+
+### Bibliotecas Obrigatórias:
+- numpy >= 1.24.0
+- opencv-python >= 4.8.0
+- matplotlib >= 3.7.0
+- Pillow >= 10.0.0
+- tensorflow
+- jax, jaxlib
+- warp-lang
+- mujoco-mjx
+- monocular-demos
+- PyInstaller
 
 ---
 

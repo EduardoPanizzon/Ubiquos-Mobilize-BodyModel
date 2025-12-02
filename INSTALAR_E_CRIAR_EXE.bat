@@ -18,26 +18,49 @@ pause
 echo.
 
 REM Verificar se Python esta instalado
-echo [1/5] Verificando Python...
+echo [1/6] Verificando Python...
 python --version >nul 2>&1
 if errorlevel 1 (
     color 0C
     echo.
     echo [ERRO] Python nao encontrado!
     echo.
-    echo Por favor, instale o Python 3.8 ou superior:
+    echo Por favor, instale o Python 3.11, 3.12 ou 3.13:
     echo https://www.python.org/downloads/
     echo.
-    echo Certifique-se de marcar "Add Python to PATH" durante a instalacao.
+    echo IMPORTANTE:
+    echo - Marque "Add Python to PATH" durante a instalacao
+    echo - Marque "Add Python tkinter" durante a instalacao
+    echo - NAO use Python 3.14 (incompativel)
+    echo - Use Python 3.11, 3.12 ou 3.13
     echo.
     pause
     exit /b 1
 )
 echo [OK] Python encontrado!
+python --version
+echo.
+echo Verificando versao do Python...
+python -c "import sys; v=sys.version_info; exit(0 if (3,11)<=v<(3,14) else 1)" 2>nul
+if errorlevel 1 (
+    color 0C
+    echo.
+    echo [ERRO] Versao do Python incompativel!
+    echo.
+    echo VERSOES COMPATIVEIS: Python 3.11, 3.12 ou 3.13
+    echo VERSAO NAO COMPATIVEL: Python 3.14
+    echo.
+    echo Por favor, instale uma versao compativel:
+    echo https://www.python.org/downloads/
+    echo.
+    pause
+    exit /b 1
+)
+echo [OK] Versao compativel!
 echo.
 
 REM Atualizar pip, setuptools e wheel
-echo [2/5] Atualizando pip, setuptools e wheel...
+echo [2/6] Atualizando pip, setuptools e wheel...
 python -m pip install --upgrade pip setuptools wheel
 if errorlevel 1 (
     echo [ERRO] Falha ao atualizar pip!
@@ -48,7 +71,7 @@ echo [OK] pip atualizado!
 echo.
 
 REM Instalar bibliotecas principais UMA POR VEZ (para detectar erros)
-echo [3/5] Instalando bibliotecas necessarias...
+echo [3/6] Instalando bibliotecas necessarias...
 echo.
 echo    Instalando numpy (versao especifica)...
 python -m pip install "numpy>=1.24.0"
@@ -135,11 +158,33 @@ python -m pip install jaxlib
 echo    [OK] jaxlib instalado!
 echo.
 
+echo    Instalando warp-lang...
+python -m pip install warp-lang
+if errorlevel 1 (
+    color 0C
+    echo [ERRO] Falha ao instalar warp-lang!
+    pause
+    exit /b 1
+)
+echo    [OK] warp-lang instalado!
+echo.
+
+echo    Instalando mujoco-mjx...
+python -m pip install mujoco-mjx
+if errorlevel 1 (
+    color 0C
+    echo [ERRO] Falha ao instalar mujoco-mjx!
+    pause
+    exit /b 1
+)
+echo    [OK] mujoco-mjx instalado!
+echo.
+
 echo [OK] Bibliotecas principais instaladas!
 echo.
 
 REM Instalar monocular-demos
-echo [4/5] Instalando monocular-demos...
+echo [4/6] Instalando monocular-demos...
 echo    Verificando se ja esta instalado...
 python -c "import monocular_demos" >nul 2>&1
 if errorlevel 1 (
@@ -174,7 +219,7 @@ if errorlevel 1 (
 echo.
 
 REM Instalar PyInstaller
-echo [5/5] Instalando PyInstaller...
+echo [5/6] Instalando PyInstaller...
 python -m pip install pyinstaller --quiet
 echo [OK] PyInstaller instalado!
 echo.
@@ -191,23 +236,26 @@ python -c "import cv2; print('[OK] opencv-python')" || (echo [ERRO] opencv-pytho
 python -c "import matplotlib; print('[OK] matplotlib')" || (echo [ERRO] matplotlib NAO instalado! & pause & exit /b 1)
 python -c "import PIL; print('[OK] Pillow')" || (echo [ERRO] Pillow NAO instalado! & pause & exit /b 1)
 python -c "import tkinter; print('[OK] tkinter')" || (echo [ERRO] tkinter NAO instalado! & pause & exit /b 1)
+python -c "import tensorflow; print('[OK] tensorflow')" || (echo [ERRO] tensorflow NAO instalado! & pause & exit /b 1)
+python -c "import jax; print('[OK] jax')" || (echo [ERRO] jax NAO instalado! & pause & exit /b 1)
+python -c "import warp; print('[OK] warp-lang')" || (echo [ERRO] warp-lang NAO instalado! & pause & exit /b 1)
+python -c "import mujoco_mjx; print('[OK] mujoco-mjx')" || (echo [ERRO] mujoco-mjx NAO instalado! & pause & exit /b 1)
+python -c "import monocular_demos; print('[OK] monocular-demos')" || (echo [ERRO] monocular-demos NAO instalado! & pause & exit /b 1)
 python -c "import PyInstaller; print('[OK] PyInstaller')" || (echo [ERRO] PyInstaller NAO instalado! & pause & exit /b 1)
-
-echo.
-echo Testando imports OPCIONAIS...
-python -c "import tensorflow; print('[OK] tensorflow')" 2>nul || echo [AVISO] tensorflow (opcional)
-python -c "import jax; print('[OK] jax')" 2>nul || echo [AVISO] jax (opcional)
-python -c "import monocular_demos; print('[OK] monocular-demos')" 2>nul || echo [AVISO] monocular-demos (opcional)
 echo.
 
 echo ============================================================
-echo Todas as bibliotecas OBRIGATORIAS foram instaladas!
+echo TODAS as bibliotecas OBRIGATORIAS foram instaladas!
+echo - numpy, opencv-python, matplotlib, Pillow, tkinter
+echo - tensorflow, jax, warp-lang, mujoco-mjx
+echo - monocular-demos, PyInstaller
+echo.
 echo O executavel pode ser criado.
 echo ============================================================
 echo.
 
 echo ============================================================
-echo   CRIANDO EXECUTAVEL
+echo   [6/6] CRIANDO EXECUTAVEL
 echo ============================================================
 echo.
 echo Gerando Analisador_Marcha.exe...
