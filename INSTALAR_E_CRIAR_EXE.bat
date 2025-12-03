@@ -265,7 +265,7 @@ if exist "dist" rmdir /s /q "dist"
 if exist "Analisador_Marcha.spec" del /q "Analisador_Marcha.spec"
 
 REM Criar executavel com todas as dependencias explicitas
-python -m pyinstaller ^
+python -m PyInstaller ^
     --name=Analisador_Marcha ^
     --onefile ^
     --windowed ^
@@ -319,5 +319,6 @@ echo - Os projetos ficam salvos na pasta "projetos"
 echo - Mantenha a pasta "projetos" junto com o .exe se for mover
 echo.
 pause
+
 
 
