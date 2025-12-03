@@ -237,8 +237,6 @@ python -c "import PIL; print('[OK] Pillow')" || (echo [ERRO] Pillow NAO instalad
 python -c "import tkinter; print('[OK] tkinter')" || (echo [ERRO] tkinter NAO instalado! & pause & exit /b 1)
 python -c "import tensorflow; print('[OK] tensorflow')" || (echo [ERRO] tensorflow NAO instalado! & pause & exit /b 1)
 python -c "import jax; print('[OK] jax')" || (echo [ERRO] jax NAO instalado! & pause & exit /b 1)
-python -c "import warp; print('[OK] warp-lang')" || (echo [ERRO] warp-lang NAO instalado! & pause & exit /b 1)
-python -c "import mujoco_mjx; print('[OK] mujoco-mjx')" || (echo [ERRO] mujoco-mjx NAO instalado! & pause & exit /b 1)
 python -c "import monocular_demos; print('[OK] monocular-demos')" || (echo [ERRO] monocular-demos NAO instalado! & pause & exit /b 1)
 python -c "import PyInstaller; print('[OK] PyInstaller')" || (echo [ERRO] PyInstaller NAO instalado! & pause & exit /b 1)
 echo.
@@ -267,7 +265,7 @@ if exist "dist" rmdir /s /q "dist"
 if exist "Analisador_Marcha.spec" del /q "Analisador_Marcha.spec"
 
 REM Criar executavel com todas as dependencias explicitas
-pyinstaller ^
+python -m pyinstaller ^
     --name=Analisador_Marcha ^
     --onefile ^
     --windowed ^
@@ -321,4 +319,5 @@ echo - Os projetos ficam salvos na pasta "projetos"
 echo - Mantenha a pasta "projetos" junto com o .exe se for mover
 echo.
 pause
+
 
