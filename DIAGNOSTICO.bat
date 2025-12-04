@@ -76,10 +76,6 @@ echo Testando tkinter...
 python -c "import tkinter; print('  [OK] Instalado')" 2>nul || echo   [X] NAO INSTALADO - Reinstale Python com tkinter
 echo.
 
-echo Testando PyInstaller...
-python -c "import PyInstaller; print('  Versao:', PyInstaller.__version__)" 2>nul || echo   [X] NAO INSTALADO
-echo.
-
 echo Testando tensorflow...
 python -c "import tensorflow; print('  Versao:', tensorflow.__version__)" 2>nul || echo   [X] NAO INSTALADO
 echo.
@@ -127,7 +123,7 @@ echo.
 echo BIBLIOTECAS OBRIGATORIAS:
 echo - numpy, opencv-python, matplotlib, Pillow, tkinter
 echo - tensorflow, jax, warp-lang, mujoco-mjx
-echo - monocular_demos, PyInstaller
+echo - monocular_demos
 echo.
 echo Se alguma biblioteca OBRIGATORIA estiver faltando:
 echo 1. Execute: CORRIGIR_INSTALACAO.bat como Administrador

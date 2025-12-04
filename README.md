@@ -147,56 +147,80 @@ Aplicação desktop desenvolvida em Python com Tkinter que permite:
 ## Instalação
 
 ### Pré-requisitos
-- **Python**: 3.8 ou superior
+- **Python**: 3.11, 3.12 ou 3.13 (⚠️ NÃO use Python 3.14 - incompatível!)
 - **Sistema Operacional**: Windows, Linux ou macOS
 - **GPU (Colab)**: Gratuito via Google Colab (recomendado T4 ou superior)
 - **Webcam**: Opcional, apenas se for gravar vídeos
 
-### Instalação Básica
+### Instalação Automática (RECOMENDADO - Windows)
+
+1. **Baixe ou clone o repositório**:
+```powershell
+git clone https://github.com/EduardoPanizzon/Ubiquos-Mobilize-BodyModel.git
+cd Ubiquos-Mobilize-BodyModel
+```
+
+2. **Execute o instalador automático**:
+   - Dê duplo clique em: `INSTALAR_E_CRIAR_EXE.bat`
+   - O script irá:
+     - ✓ Verificar se Python está instalado (versão compatível)
+     - ✓ Instalar todas as bibliotecas necessárias
+     - ✓ Instalar monocular-demos para visualização MuJoCo
+     - ✓ Criar um atalho "Analisador de Marcha.lnk" na pasta
+
+3. **Aguarde** a instalação (5-10 minutos na primeira vez)
+
+4. **Execute o programa**:
+   - Dê duplo clique no atalho "Analisador de Marcha.lnk"
+
+### Instalação Manual (Linux/macOS ou avançado)
 
 1. **Clone o repositório**:
-```powershell
-git clone https://github.com/seu-usuario/gait-analysis.git
-cd gait-analysis
+```bash
+git clone https://github.com/EduardoPanizzon/Ubiquos-Mobilize-BodyModel.git
+cd Ubiquos-Mobilize-BodyModel
 ```
 
 2. **Instale as dependências principais**:
-```powershell
-pip install -r requirements_gui.txt
+```bash
+pip install numpy>=1.24.0
+pip install opencv-python>=4.8.0
+pip install matplotlib>=3.7.0
+pip install Pillow>=10.0.0
+pip install tensorflow
+pip install tensorflow-hub
+pip install jax jaxlib
+pip install warp-lang
+pip install mujoco-mjx
 ```
 
-**Conteúdo de `requirements_gui.txt`**:
-```
-opencv-python>=4.8.0
-Pillow>=10.0.0
-numpy>=1.24.0
-matplotlib>=3.7.0
-```
+3. **Instale monocular-demos (opcional, para MuJoCo)**:
+```bash
+# Opção 1: Via pip diretamente
+pip install git+https://github.com/IntelligentSensingAndRehabilitation/monocular-demos.git
 
-### Instalação Completa (com MuJoCo)
-
-Para visualização biomecânica 3D completa (mesma do notebook científico):
-
-```powershell
-# Instalar GaitTransformer
-pip install git+https://github.com/peabody124/GaitTransformer
-
-# Clonar e instalar monocular-demos
+# Opção 2: Clone e instale localmente
 git clone https://github.com/IntelligentSensingAndRehabilitation/monocular-demos.git
 cd monocular-demos
 pip install .
 cd ..
 ```
 
-⚠️ **Nota sobre MuJoCo**: 
-- A instalação MuJoCo é **opcional**
+4. **Execute o programa**:
+```bash
+python video_processor_gui.py
+```
+
+⚠️ **Notas Importantes**: 
+- A instalação MuJoCo (monocular-demos) é **opcional**
 - Se não instalado, o sistema usa automaticamente visualização 2D simplificada
 - Todas as outras funcionalidades (análise de marcha, gráficos) continuam funcionando
 - A instalação MuJoCo pode demorar e requer ~2GB de espaço
+- **Python 3.14 NÃO é compatível** - use 3.11, 3.12 ou 3.13
 
 ### Configuração do Google Colab
 
-1. Acesse o [Google Colab](https://colab.research.google.com/drive/194MdVlQTAoZEOzl64pkQb28im5bM9PST?usp=sharing)
+1. Acesse o [Google Colab](https://colab.research.google.com/)
 2. Faça upload do notebook `Mobile_cloud.ipynb`
 3. Configure o runtime para usar GPU:
    - Runtime → Change runtime type → Hardware accelerator: **GPU**
@@ -208,7 +232,11 @@ cd ..
 
 #### 1. Iniciar a Aplicação
 
-```powershell
+**Windows (após instalação automática)**:
+- Dê duplo clique no atalho "Analisador de Marcha.lnk"
+
+**Ou manualmente (qualquer sistema)**:
+```bash
 python video_processor_gui.py
 ```
 
@@ -389,15 +417,6 @@ O método foi validado em estudos comparando com sistemas gold-standard de captu
 
 ## Solução de Problemas
 
-### Aplicação não inicia
-```powershell
-# Verifique instalação do Python
-python --version  # Deve ser >= 3.8
-
-# Reinstale dependências
-pip install --upgrade -r requirements_gui.txt
-```
-
 ### Erro ao processar vídeo no Colab
 - **GPU não conectada**: Runtime → Change runtime type → GPU
 - **Memória insuficiente**: Reduza duração do vídeo (use o editor)
@@ -452,34 +471,3 @@ Contribuições são bem-vindas! Para contribuir:
 ## Licença
 
 Este projeto é baseado no trabalho do [IntelligentSensingAndRehabilitation](https://github.com/IntelligentSensingAndRehabilitation) e utiliza o [GaitTransformer](https://github.com/peabody124/GaitTransformer). Consulte as licenças originais dos projetos base.
-
-## Citação
-
-Se utilizar este projeto em pesquisa acadêmica, por favor cite:
-
-```bibtex
-@software{gait_analysis_2025,
-  title={Gait Analysis - Sistema de Análise de Marcha Híbrido GPU/CPU},
-  author={[Seu Nome]},
-  year={2025},
-  note={Baseado em GaitTransformer e IntelligentSensingAndRehabilitation}
-}
-```
-
-## Contato e Suporte
-
-- **Issues**: [GitHub Issues](https://github.com/seu-usuario/gait-analysis/issues)
-- **Documentação Adicional**: `README_GUI.md`
-- **Projeto Base**: [IntelligentSensingAndRehabilitation](https://github.com/IntelligentSensingAndRehabilitation)
-
-## Agradecimentos
-
-- **GaitTransformer Team** pela arquitetura base e modelos
-- **IntelligentSensingAndRehabilitation** pelos notebooks e metodologia
-- **MuJoCo/DeepMind** pelo simulador biomecânico
-- **Google Colab** por disponibilizar GPUs gratuitamente
-- Comunidade open-source de visão computacional e biomecânica
-
----
-
-**Desenvolvido para facilitar análise biomecânica acessível e precisa 🚶‍♂️🔬**

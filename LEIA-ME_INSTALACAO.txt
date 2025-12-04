@@ -14,47 +14,46 @@
 
 ---
 
-## Como criar o executável:
+## Como instalar e usar:
 
-### Opção 1: INSTALAÇÃO AUTOMÁTICA (RECOMENDADO)
+### INSTALAÇÃO AUTOMÁTICA (RECOMENDADO)
 
 1. **Dê duplo clique** em: `INSTALAR_E_CRIAR_EXE.bat`
 
 2. O script irá automaticamente:
    - ✓ Verificar se Python está instalado (versão 3.11-3.13)
    - ✓ Instalar todas as bibliotecas necessárias:
-     • numpy, opencv-python, matplotlib, Pillow
+     • numpy, opencv-python, matplotlib, Pillow, tkinter
      • tensorflow, jax, warp-lang, mujoco-mjx
-     • monocular-demos, PyInstaller
-   - ✓ Criar o executável `Analisador_Marcha.exe`
+     • monocular-demos
+   - ✓ Criar um atalho "Analisador de Marcha.lnk" na pasta do projeto
 
 3. **Aguarde** (pode levar 5-10 minutos na primeira vez)
 
-4. Pronto! O executável estará em: `dist\Analisador_Marcha.exe`
+4. Pronto! Um atalho será criado na pasta do projeto!
 
 ---
 
-### Opção 2: Apenas executar (se já instalado)
+## Como usar o programa:
 
-Se você já instalou tudo e só quer executar o programa:
+1. Após a instalação, você verá o arquivo **"Analisador de Marcha.lnk"** na pasta do projeto
 
-1. **Dê duplo clique** em: `Executar_Analisador_Marcha.bat`
-
----
-
-## Como usar o executável criado:
-
-1. O arquivo `Analisador_Marcha.exe` está na pasta `dist\`
-
-2. Você pode:
-   - Executar diretamente dando duplo clique
-   - Criar um atalho na área de trabalho
-   - Copiar para qualquer lugar do computador
-   - **Distribuir para outras pessoas** (não precisa instalar Python!)
+2. Para executar o programa:
+   - **Dê duplo clique** no atalho "Analisador de Marcha.lnk"
+   - OU execute manualmente: abra o terminal na pasta e digite `python video_processor_gui.py`
 
 3. **IMPORTANTE**: 
-   - Os projetos ficam salvos na pasta `projetos`
-   - Se mover o .exe, leve a pasta `projetos` junto
+   - Python DEVE estar instalado para o programa funcionar
+   - As bibliotecas são instaladas no seu sistema Python
+   - Os projetos ficam salvos na pasta "projetos"
+   - Não mova os arquivos desta pasta
+
+---
+
+## Recriar o atalho:
+
+Se você apagar acidentalmente o atalho, execute:
+- **Dê duplo clique** em: `CRIAR_ATALHO.bat`
 
 ---
 
@@ -74,17 +73,19 @@ Se você já instalou tudo e só quer executar o programa:
 - Verifique sua conexão com a internet
 - Execute o script como Administrador (clique direito → Executar como administrador)
 
-### "Executável não abre"
-- Verifique se o Windows Defender não bloqueou
-- Clique direito no .exe → Propriedades → Desbloquear
+### "Atalho não funciona"
+- Verifique se Python está no PATH do sistema
+- Execute `python --version` no terminal para confirmar
+- Execute o programa diretamente: `python video_processor_gui.py`
 
 ---
 
-## Distribuindo para outras pessoas:
+## Para outras pessoas usarem:
 
-1. Copie apenas o arquivo `dist\Analisador_Marcha.exe`
-2. A pessoa **NÃO** precisa ter Python instalado
-3. O executável funciona sozinho
+Para que outra pessoa use o programa:
+1. Ela DEVE ter Python 3.11, 3.12 ou 3.13 instalado
+2. Copie toda a pasta do projeto
+3. Na máquina dela, execute `INSTALAR_E_CRIAR_EXE.bat` para instalar as bibliotecas
 
 ---
 
@@ -110,7 +111,6 @@ Se encontrar problemas:
 - warp-lang
 - mujoco-mjx
 - monocular-demos
-- PyInstaller
 
 ---
 

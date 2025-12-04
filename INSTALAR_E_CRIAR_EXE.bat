@@ -10,7 +10,7 @@ echo Este script ira:
 echo 1. Verificar se Python esta instalado
 echo 2. Instalar todas as bibliotecas necessarias
 echo 3. Instalar monocular-demos
-echo 4. Criar o executavel (.exe)
+echo 4. Criar um atalho na area de trabalho
 echo.
 echo Isso pode levar alguns minutos...
 echo.
@@ -217,11 +217,7 @@ if errorlevel 1 (
 )
 echo.
 
-REM Instalar PyInstaller
-echo [5/6] Instalando PyInstaller...
-python -m pip install pyinstaller --quiet
-echo [OK] PyInstaller instalado!
-echo.
+
 
 REM Verificar instalacoes
 echo ============================================================
@@ -238,59 +234,32 @@ python -c "import tkinter; print('[OK] tkinter')" || (echo [ERRO] tkinter NAO in
 python -c "import tensorflow; print('[OK] tensorflow')" || (echo [ERRO] tensorflow NAO instalado! & pause & exit /b 1)
 python -c "import jax; print('[OK] jax')" || (echo [ERRO] jax NAO instalado! & pause & exit /b 1)
 python -c "import monocular_demos; print('[OK] monocular-demos')" || (echo [ERRO] monocular-demos NAO instalado! & pause & exit /b 1)
-python -c "import PyInstaller; print('[OK] PyInstaller')" || (echo [ERRO] PyInstaller NAO instalado! & pause & exit /b 1)
 echo.
 
 echo ============================================================
 echo TODAS as bibliotecas OBRIGATORIAS foram instaladas!
 echo - numpy, opencv-python, matplotlib, Pillow, tkinter
 echo - tensorflow, jax, warp-lang, mujoco-mjx
-echo - monocular-demos, PyInstaller
+echo - monocular-demos
 echo.
-echo O executavel pode ser criado.
+echo Instalacao concluida!
 echo ============================================================
 echo.
 
 echo ============================================================
-echo   [6/6] CRIANDO EXECUTAVEL
+echo   [6/6] CRIANDO ATALHO
 echo ============================================================
 echo.
-echo Gerando Analisador_Marcha.exe...
-echo Este processo pode levar alguns minutos...
+echo Criando atalho na pasta do projeto...
 echo.
 
-REM Limpar builds anteriores
-if exist "build" rmdir /s /q "build"
-if exist "dist" rmdir /s /q "dist"
-if exist "Analisador_Marcha.spec" del /q "Analisador_Marcha.spec"
-
-REM Criar executavel com todas as dependencias explicitas
-python -m PyInstaller ^
-    --name=Analisador_Marcha ^
-    --onefile ^
-    --windowed ^
-    --icon=NONE ^
-    --hidden-import=PIL._tkinter_finder ^
-    --hidden-import=tkinter ^
-    --hidden-import=tkinter.ttk ^
-    --hidden-import=tkinter.filedialog ^
-    --hidden-import=tkinter.messagebox ^
-    --hidden-import=cv2 ^
-    --hidden-import=matplotlib ^
-    --hidden-import=matplotlib.pyplot ^
-    --hidden-import=matplotlib.backends.backend_agg ^
-    --hidden-import=numpy ^
-    --hidden-import=PIL ^
-    --hidden-import=PIL.Image ^
-    --hidden-import=PIL.ImageTk ^
-    --collect-data cv2 ^
-    --noconfirm ^
-    video_processor_gui.py
+REM Criar atalho usando PowerShell (na pasta atual)
+powershell -Command "$WshShell = New-Object -ComObject WScript.Shell; $Shortcut = $WshShell.CreateShortcut('%~dp0Analisador de Marcha.lnk'); $Shortcut.TargetPath = 'cmd.exe'; $Shortcut.Arguments = '/c python video_processor_gui.py'; $Shortcut.WorkingDirectory = '%~dp0'; $Shortcut.Description = 'Analisador de Marcha - Video Processor'; $Shortcut.Save()"
 
 if errorlevel 1 (
     color 0C
     echo.
-    echo [ERRO] Falha ao criar executavel!
+    echo [ERRO] Falha ao criar atalho!
     echo Verifique os erros acima.
     echo.
     pause
@@ -303,20 +272,18 @@ echo   SUCESSO!
 echo ============================================================
 echo.
 color 0A
-echo O executavel foi criado com sucesso!
+echo Instalacao concluida e atalho criado!
 echo.
-echo Localizacao: dist\Analisador_Marcha.exe
+echo Localizacao: Analisador de Marcha.lnk (nesta pasta)
 echo.
-echo Voce pode:
-echo 1. Executar dist\Analisador_Marcha.exe diretamente
-echo 2. Copiar o .exe para qualquer lugar
-echo 3. Criar um atalho na area de trabalho
-echo 4. Distribuir para outras pessoas
+echo Para usar:
+echo 1. Clique duas vezes no atalho "Analisador de Marcha.lnk"
+echo 2. Ou execute: python video_processor_gui.py
 echo.
 echo IMPORTANTE: 
-echo - O executavel NAO precisa de Python instalado para rodar
+echo - Python deve estar instalado para o programa funcionar
+echo - As bibliotecas foram instaladas no sistema
 echo - Os projetos ficam salvos na pasta "projetos"
-echo - Mantenha a pasta "projetos" junto com o .exe se for mover
 echo.
 pause
 
