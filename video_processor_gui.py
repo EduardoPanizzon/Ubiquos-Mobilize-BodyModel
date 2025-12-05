@@ -373,12 +373,13 @@ class VideoProcessorApp:
         2. Certifique-se de que o vídeo foi cortado e está pronto
         3. Clique em "Abrir Google Colab" abaixo
         4. No Colab, execute o notebook Mobile_cloud.ipynb
-        5. Aguarde o processamento na nuvem (pode levar alguns minutos)
-        6. Os arquivos processados serão salvos automaticamente no Drive
+        5. Selecione o número do projeto
+        6. Aguarde o processamento na nuvem (pode levar alguns minutos)
+        7. Os arquivos processados serão salvos automaticamente no Drive e na pasta local
         
         VISUALIZAÇÃO:
-        7. Acesse a aba "Resultados" e clique em "Processar Resultados"
-        8. Visualize os gráficos e vídeos de análise de marcha
+        8. Acesse a aba "Resultados" e clique em "Processar Resultados"
+        9. Visualize os gráficos e vídeos de análise de marcha
         """
         
         ttk.Label(instructions_frame, text=instructions, 

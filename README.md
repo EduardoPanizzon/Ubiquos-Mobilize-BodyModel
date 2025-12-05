@@ -248,6 +248,8 @@ python video_processor_gui.py
 
 #### 3. Adicionar Vídeo (Aba "Vídeo")
 
+![teste](images/1.png)
+
 **Opção A - Upload**:
 1. Clique em "Upload de Vídeo"
 2. Selecione arquivo MP4/AVI/MOV/MKV
@@ -270,6 +272,8 @@ python video_processor_gui.py
 
 #### 4. Editar Vídeo (Aba "Editor") - Opcional
 
+![teste](images/2.png)
+
 1. Use os sliders para definir início e fim
 2. Preview mostra frame selecionado
 3. Verifique duração cortada
@@ -283,24 +287,16 @@ python video_processor_gui.py
 
 #### 5. Processar no Colab (Aba "Processamento")
 
-1. **Configure URL** (primeira vez):
-   - Cole o link do seu `Mobile_cloud.ipynb` no Colab
-   - URL é salva automaticamente
-
-2. **Clique em "Abrir Google Colab"**:
+1. **Clique em "Abrir Google Colab"**:
    - Notebook abre no navegador
 
-3. **No Google Colab**:
+2. **No Google Colab**:
    - Conecte ao runtime GPU (canto superior direito)
-   - Faça upload do vídeo do projeto ou use Google Drive
    - Execute todas as células (Runtime → Run all)
+   - Selecione o número do projeto
    - Aguarde processamento (5-20 min dependendo do vídeo)
-   - Baixe os 3 arquivos gerados:
-     - `keypoints3d.npz` - Pontos 3D do corpo
-     - `ang.pkl` - Ângulos das articulações
-     - `dataset.pkl` - Dataset processado
 
-4. **Coloque os arquivos na pasta do projeto**:
+3. **Os arquivos necessários serão salvos automaticamente na pasta do projeto**:
    ```
    projetos/Nome_do_Projeto/
    ├── video.mp4
@@ -310,6 +306,8 @@ python video_processor_gui.py
    ```
 
 #### 6. Processar Resultados Localmente (Aba "Resultados")
+
+![teste](images/3.png)
 
 1. **Verificar arquivos**:
    - Clique em "🔄 Verificar Arquivos"
