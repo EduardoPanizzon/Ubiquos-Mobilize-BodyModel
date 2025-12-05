@@ -6,6 +6,9 @@ Este projeto foi desenvolvido como parte de um trabalho de estudo médico e reab
 
 O projeto visa democratizar o acesso à análise de marcha avançada, permitindo que profissionais da saúde, fisioterapeutas e pesquisadores realizem avaliações biomecânicas detalhadas utilizando apenas vídeos capturados por câmeras convencionais ou webcams, sem necessidade de equipamentos especializados caros como sistemas de captura de movimento.
 
+![](images/knee_angles_time.png)
+![](images/knee_left_cycles.png)
+
 ## Descrição do Projeto
 
 O sistema é dividido em duas etapas principais de processamento:
@@ -248,7 +251,7 @@ python video_processor_gui.py
 
 #### 3. Adicionar Vídeo (Aba "Vídeo")
 
-![teste](images/1.png)
+![](images/1.png)
 
 **Opção A - Upload**:
 1. Clique em "Upload de Vídeo"
@@ -272,7 +275,7 @@ python video_processor_gui.py
 
 #### 4. Editar Vídeo (Aba "Editor") - Opcional
 
-![teste](images/2.png)
+![](images/2.png)
 
 1. Use os sliders para definir início e fim
 2. Preview mostra frame selecionado
@@ -307,7 +310,7 @@ python video_processor_gui.py
 
 #### 6. Processar Resultados Localmente (Aba "Resultados")
 
-![teste](images/3.png)
+![](images/3.png)
 
 1. **Verificar arquivos**:
    - Clique em "🔄 Verificar Arquivos"
